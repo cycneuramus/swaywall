@@ -6,14 +6,8 @@ import random
 from pathlib import Path
 
 
-def parse_args():
-    self = Path(__file__).name
-    ap = argparse.ArgumentParser(self)
-    ap.add_argument("dir", help="path to wallpaper directory", type=str)
-    ap.add_argument(
-        "-r", "--restore", help="restore latest wallpaper", action="store_true"
-    )
-    return ap.parse_args()
+def dedupe(lst):
+    return list(set(lst))
 
 
 def ensure_exists(file):
@@ -27,6 +21,16 @@ def find(path, exts):
         for i in path.glob(f"*.{e}"):
             res.append(i)
     return res
+
+
+def parse_args():
+    self = Path(__file__).name
+    ap = argparse.ArgumentParser(self)
+    ap.add_argument("dir", help="path to wallpaper directory", type=str)
+    ap.add_argument(
+        "-r", "--restore", help="restore latest wallpaper", action="store_true"
+    )
+    return ap.parse_args()
 
 
 def get_history(hst_file):
@@ -49,6 +53,9 @@ def get_new(walls, hst):
 
 
 def remember(new, walls, hst, hst_file):
+    hst = dedupe(hst)
+    random.shuffle(hst)  # avoid cycling through walls in the same order
+
     hst.insert(0, new)
     del hst[len(walls) - 1 :]
     with hst_file.open("w") as f:

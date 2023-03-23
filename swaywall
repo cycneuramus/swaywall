@@ -48,8 +48,8 @@ def get_new(walls, hst):
     return res
 
 
-def remember(fresh, walls, hst, hst_file):
-    hst.insert(0, fresh)
+def remember(new, walls, hst, hst_file):
+    hst.insert(0, new)
     del hst[len(walls) - 1 :]
     with hst_file.open("w") as f:
         for i in hst:

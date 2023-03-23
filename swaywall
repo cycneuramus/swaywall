@@ -63,11 +63,11 @@ def set_wall(img):
 def main():
     args = parse_args()
     walls_dir = Path(args.dir)
+    if not walls_dir.is_dir():
+        raise FileNotFoundError(f"directory not found: {walls_dir}")
 
-    home = Path.home()
-    state = os.getenv("XDG_STATE_HOME") or home / ".local" / "state"
+    state = os.getenv("XDG_STATE_HOME") or Path.home() / ".local" / "state"
     hst_file = Path(state) / "wallpaperhst"
-
     img_exts = ["png", "jpg", "jpeg"]
 
     hst = get_history(hst_file)
@@ -76,6 +76,9 @@ def main():
         exit()
 
     walls = find(walls_dir, img_exts)
+    if not walls:
+        raise FileNotFoundError(f"no wallpapers found in {walls_dir}")
+
     new = get_new(walls, hst)
     if new:
         remember(new, walls, hst, hst_file)

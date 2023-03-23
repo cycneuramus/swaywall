@@ -7,6 +7,8 @@ An intelligent wallpaper switcher for `swaywm`.
 	- Never repeats a wallpaper until the entire catalogue has been cycled through
 	- Can restore the latest selection (useful on `swaywm` start)
 
+---
+
 ``` 
 usage: swaywall [-h] [-r] dir
 

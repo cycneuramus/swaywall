@@ -43,13 +43,11 @@ def get_history(hst_file):
 
 
 def get_new(walls, hst):
-    res = ""
-    for res in random.sample(walls, len(walls)):
-        if res in hst:
-            continue
-        else:
-            break
-    return res
+    new_walls = []
+    for w in walls:
+        if w not in hst:
+            new_walls.append(w)
+    return random.choice(new_walls)
 
 
 def remember(new, walls, hst, hst_file):

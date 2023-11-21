@@ -3,6 +3,7 @@
 import argparse
 import os
 import random
+import json
 from pathlib import Path
 
 
@@ -61,8 +62,17 @@ def remember(new, walls, hst, hst_file):
             f.write(f"{i}\n")
 
 
-def set_wall(img):
-    os.system(f"swaymsg output '*' bg {img} fill")
+def get_outputs():
+    '''
+    Returns an array of the outputs detected by sway
+    '''
+    res = os.popen('swaymsg -t get_outputs').read()
+    outputs = json.loads(res)
+    output_names = [output['name'] for output in outputs if output['active']]
+    return output_names
+
+def set_wall(img, output):
+    os.system(f"swaymsg output '{output}' bg {img} fill")
 
 
 def main():
@@ -75,19 +85,21 @@ def main():
     hst_file = Path(state) / "wallpaperhst"
     img_exts = ["png", "jpg", "jpeg"]
 
-    hst = get_history(hst_file)
-    if args.restore and hst:
-        set_wall(hst[0])
-        exit()
+    outputs = get_outputs()
+    for output in outputs:
+        hst = get_history(hst_file)
+        if args.restore and hst:
+            set_wall(hst[0], output)
+            exit()
 
-    walls = find(walls_dir, img_exts)
-    if not walls:
-        raise FileNotFoundError(f"no wallpapers found in {walls_dir}")
+        walls = find(walls_dir, img_exts)
+        if not walls:
+            raise FileNotFoundError(f"no wallpapers found in {walls_dir}")
 
-    new = get_new(walls, hst)
-    if new:
-        remember(new, walls, hst, hst_file)
-        set_wall(new)
+        new = get_new(walls, hst)
+        if new:
+            remember(new, walls, hst, hst_file)
+            set_wall(new, output)
 
 
 if __name__ == "__main__":

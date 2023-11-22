@@ -42,7 +42,6 @@ def get_history(hst_file):
         res.append(i)
     return res
 
-
 def get_new(walls, hst):
     new_walls = []
     for w in walls:
@@ -52,11 +51,24 @@ def get_new(walls, hst):
 
 
 def remember(new, walls, hst, hst_file):
+    """
+    Update the wallpaper history file with a new wallpaper
+
+    Parameters:
+    - new (list): list of strings of the wallpaper(s) that have just been set
+    - walls (list): a list of path objects representing available wallpapers
+    - hst (list): a list of strings of the wallpaper history
+    - hst_file (Path): the path to the history file
+
+    Returns:
+    None
+    """
     hst = dedupe(hst)
     random.shuffle(hst)  # avoid cycling through walls in the same order
-
-    hst.insert(0, new)
-    del hst[len(walls) - 1 :]
+    for wallpaper in new:
+        # insert each new wallpaper to the history
+        hst.insert(0, wallpaper)
+    del hst[len(walls) - 1 :] 
     with hst_file.open("w") as f:
         for i in hst:
             f.write(f"{i}\n")
@@ -78,29 +90,39 @@ def set_wall(img, output):
 def main():
     args = parse_args()
     walls_dir = Path(args.dir)
-    if not walls_dir.is_dir():
+    # check wallpaper directory exists
+    if not walls_dir.is_dir(): 
         raise FileNotFoundError(f"directory not found: {walls_dir}")
 
     state = os.getenv("XDG_STATE_HOME") or Path.home() / ".local" / "state"
-    hst_file = Path(state) / "wallpaperhst"
+    hst_file = Path(state) / "wallpaperhst" # history file
     img_exts = ["png", "jpg", "jpeg"]
 
     outputs = get_outputs()
+
+    # check images are in the folder
+    walls = find(walls_dir, img_exts) 
+    if not walls:
+        raise FileNotFoundError(f"no wallpapers found in {walls_dir}")
+    
+    hst = get_history(hst_file)
+    hst_len = len(hst)
+    i = len(outputs) - 1
+    set_walls = []
     for output in outputs:
-        hst = get_history(hst_file)
         if args.restore and hst:
-            set_wall(hst[0], output)
-            exit()
-
-        walls = find(walls_dir, img_exts)
-        if not walls:
-            raise FileNotFoundError(f"no wallpapers found in {walls_dir}")
-
-        new = get_new(walls, hst)
-        if new:
-            remember(new, walls, hst, hst_file)
-            set_wall(new, output)
+            # restore previous wallpaper(s)
+            set_wall(hst[i % hst_len], output)
+            i -= 1
+        else:
+            # get a new wallpaper
+            new = get_new(walls, hst)
+            if new:
+                set_walls.append(new)
+                set_wall(new, output)
+            remember(set_walls, walls, hst, hst_file)
 
 
 if __name__ == "__main__":
     main()
+

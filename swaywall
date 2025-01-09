@@ -45,7 +45,7 @@ def get_history(hst_file):
 def get_new(walls, hst):
     new_walls = []
     for w in walls:
-        if w not in hst:
+        if str(w) not in hst:
             new_walls.append(w)
     return random.choice(new_walls)
 
@@ -54,7 +54,7 @@ def remember(new, walls, hst, hst_file):
     hst = dedupe(hst)
     random.shuffle(hst)  # avoid cycling through walls in the same order
 
-    hst.insert(0, new)
+    hst.insert(0, str(new))
     del hst[len(walls) - 1 :]
     with hst_file.open("w") as f:
         for i in hst:

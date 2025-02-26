@@ -36,11 +36,13 @@ def parse_args() -> argparse.Namespace:
 
 
 def get_history(hst_file: Path) -> list:
-    res = []
     ensure_exists(hst_file)
-    for line in hst_file.read_text().splitlines():
-        i = line.rstrip()
-        res.append(i)
+    res = []
+    for path in hst_file.read_text().splitlines():
+        wp = path.strip()
+        if not Path(wp).exists():
+            continue
+        res.append(wp)
     return res
 
 

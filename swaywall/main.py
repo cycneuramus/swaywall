@@ -19,7 +19,7 @@ def ensure_exists(file: Path) -> None:
 def find(path: Path, exts: list[str]) -> list:
     res = []
     for e in exts:
-        for i in path.glob(f"*.{e}"):
+        for i in path.glob(f"**/*.{e}"):
             res.append(i)
     return res
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
 import random
 import subprocess
+from os import getenv
 from pathlib import Path
 from typing import Any
 
@@ -84,7 +84,7 @@ def main() -> None:
     if not walls_dir.is_dir():
         raise FileNotFoundError(f"directory not found: {walls_dir}")
 
-    state = os.getenv("XDG_STATE_HOME") or Path.home() / ".local" / "state"
+    state = getenv("XDG_STATE_HOME") or Path.home() / ".local" / "state"
     hst_file = Path(state) / "wallpaperhst"
     hst = get_history(hst_file)
 

@@ -6,16 +6,16 @@ import random
 from pathlib import Path
 
 
-def dedupe(lst):
+def dedupe(lst: list) -> list:
     return list(set(lst))
 
 
-def ensure_exists(file):
+def ensure_exists(file: Path) -> None:
     file.parent.mkdir(parents=True, exist_ok=True)
     file.touch(exist_ok=True)
 
 
-def find(path, exts):
+def find(path: Path, exts: list[str]) -> list:
     res = []
     for e in exts:
         for i in path.glob(f"*.{e}"):
@@ -23,7 +23,7 @@ def find(path, exts):
     return res
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(
         prog="swaywall", description="Intelligent wallpaper switcher for swaywm"
     )
@@ -34,7 +34,7 @@ def parse_args():
     return ap.parse_args()
 
 
-def get_history(hst_file):
+def get_history(hst_file: Path) -> list:
     res = []
     ensure_exists(hst_file)
     for line in hst_file.read_text().splitlines():
@@ -43,7 +43,7 @@ def get_history(hst_file):
     return res
 
 
-def get_new(walls, hst):
+def get_new(walls: list, hst: list) -> Path:
     new_walls = []
     for w in walls:
         if str(w) not in hst:
@@ -51,7 +51,7 @@ def get_new(walls, hst):
     return random.choice(new_walls)
 
 
-def remember(new, walls, hst, hst_file):
+def remember(new: Path, walls: list, hst: list, hst_file: Path) -> None:
     hst = dedupe(hst)
     random.shuffle(hst)  # avoid cycling through walls in the same order
 
@@ -62,11 +62,11 @@ def remember(new, walls, hst, hst_file):
             f.write(f"{i}\n")
 
 
-def set_wall(img):
+def set_wall(img: Path) -> None:
     os.system(f"swaymsg output '*' bg {img} fill")
 
 
-def main():
+def main() -> None:
     args = parse_args()
     walls_dir = Path(args.dir)
     if not walls_dir.is_dir():

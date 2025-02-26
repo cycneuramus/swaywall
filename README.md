@@ -7,9 +7,15 @@ An intelligent wallpaper switcher for `swaywm`.
 	- Never repeats a wallpaper until the entire catalogue has been cycled through
 	- Can restore the latest selection (useful on `swaywm` start)
 
----
+## Installation
 
-``` 
+`swaywall` is packaged on [PyPi](https://pypi.org/project/swaywall) and can be installed using, for example, [`pipx`](https://pipx.pypa.io/stable/):
+
++ `pipx install swaywall`
+
+## Usage
+
+```
 usage: swaywall [-h] [-r] dir
 
 positional arguments:

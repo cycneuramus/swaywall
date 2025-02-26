@@ -24,8 +24,9 @@ def find(path, exts):
 
 
 def parse_args():
-    self = Path(__file__).name
-    ap = argparse.ArgumentParser(self)
+    ap = argparse.ArgumentParser(
+        prog="swaywall", description="Intelligent wallpaper switcher for swaywm"
+    )
     ap.add_argument("dir", help="path to wallpaper directory", type=str)
     ap.add_argument(
         "-r", "--restore", help="restore latest wallpaper", action="store_true"

@@ -33,6 +33,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-r", "--restore", help="restore latest wallpaper", action="store_true"
     )
+    parser.add_argument(
+        "-e",
+        "--extensions",
+        nargs="+",
+        default=["png", "jpg", "jpeg"],
+        metavar="EXT",
+        help="image file extensions to look for",
+    )
     return parser.parse_args()
 
 
@@ -78,14 +86,13 @@ def main() -> None:
 
     state = os.getenv("XDG_STATE_HOME") or Path.home() / ".local" / "state"
     hst_file = Path(state) / "wallpaperhst"
-    img_exts = ["png", "jpg", "jpeg"]
 
     hst = get_history(hst_file)
     if args.restore and hst:
         set_wall(hst[0])
         exit(0)
 
-    walls = find(walls_dir, img_exts)
+    walls = find(walls_dir, args.extensions)
     if not walls:
         raise FileNotFoundError(f"no wallpapers found in {walls_dir}")
 

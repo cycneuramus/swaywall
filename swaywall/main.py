@@ -86,10 +86,13 @@ def main() -> None:
 
     state = os.getenv("XDG_STATE_HOME") or Path.home() / ".local" / "state"
     hst_file = Path(state) / "wallpaperhst"
-
     hst = get_history(hst_file)
+
     if args.restore and hst:
-        set_wall(hst[0])
+        previous_wall = Path(hst[0])
+        if not previous_wall.exists():
+            raise FileNotFoundError(f"wallpaper not found: {previous_wall}")
+        set_wall(previous_wall)
         exit(0)
 
     walls = find(walls_dir, args.extensions)

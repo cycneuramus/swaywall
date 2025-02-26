@@ -16,12 +16,16 @@ An intelligent wallpaper switcher for `swaywm`.
 ## Usage
 
 ```
-usage: swaywall [-h] [-r] dir
+usage: swaywall [-h] [-r] [-e EXT [EXT ...]] dir
+
+Intelligent wallpaper switcher for swaywm
 
 positional arguments:
-  dir            path to wallpaper directory
+  dir                   path to wallpaper directory
 
 options:
-  -h, --help     show this help message and exit
-  -r, --restore  restore latest wallpaper
+  -h, --help            show this help message and exit
+  -r, --restore         restore latest wallpaper
+  -e, --extensions EXT [EXT ...]
+                        image file extensions to look for (default: png jpg jpeg)
 ```

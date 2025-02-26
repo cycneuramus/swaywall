@@ -1,0 +1,74 @@
+name: Deploy package
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+env:
+  PROJECT: swaywall
+  PYTHON_VERSION: 3.13.1
+  POETRY_VERSION: 2.1.1
+
+jobs:
+  publish-test-pypi:
+    name: Publish (test.pypi.org)
+    runs-on: ubuntu-latest
+    environment:
+      name: test.pypi.org
+      url: https://test.pypi.org/project/$PROJECT/${{ steps.get-version.outputs.package_version }}/
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: $PYTHON_VERSION
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: $POETRY_VERSION"
+      - name: Install dependencies
+        run: poetry install
+      - name: Get Package Version
+        id: get-version
+        run: echo "package_version=$(poetry version -s)" >> $GITHUB_OUTPUT
+      - name: Build package
+        run: poetry build
+      - name: Add test.pypi.org to Poetry
+        run: |
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry config pypi-token.testpypi ${{ secrets.TESTPYPI_TOKEN }}
+      - name: Publish package
+        run: poetry publish -r testpypi
+
+  publish-pypi:
+    name: Publish (pypi.org)
+    runs-on: ubuntu-latest
+    needs: publish-test-pypi
+    environment:
+      name: pypi.org
+      url: https://pypi.org/project/$PROJECT/${{ steps.get-version.outputs.package_version }}/
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: $PYTHON_VERSION
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: $POETRY_VERSION
+      - name: Install dependencies
+        run: poetry install
+      - name: Get Package Version
+        id: get-version
+        run: echo "package_version=$(poetry version -s)" >> $GITHUB_OUTPUT
+      - name: Build package
+        run: poetry build
+      - name: Add pypi.org to Poetry
+        run: |
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+      - name: Publish package
+        run: poetry publish

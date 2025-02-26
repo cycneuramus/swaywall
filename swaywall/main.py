@@ -3,6 +3,7 @@
 import argparse
 import os
 import random
+import subprocess
 from pathlib import Path
 
 
@@ -63,7 +64,7 @@ def remember(new: Path, walls: list, hst: list, hst_file: Path) -> None:
 
 
 def set_wall(img: Path) -> None:
-    os.system(f"swaymsg output '*' bg {img} fill")
+    subprocess.run(["swaymsg", "output", "*", "bg", str(img), "fill"], check=True)
 
 
 def main() -> None:

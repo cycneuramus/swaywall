@@ -5,9 +5,10 @@ import os
 import random
 import subprocess
 from pathlib import Path
+from typing import Any
 
 
-def dedupe(lst: list) -> list:
+def dedupe(lst: list[Any]) -> list[Any]:
     return list(set(lst))
 
 
@@ -16,57 +17,57 @@ def ensure_exists(file: Path) -> None:
     file.touch(exist_ok=True)
 
 
-def find(path: Path, exts: list[str]) -> list:
-    res = []
-    for e in exts:
-        for i in path.glob(f"**/*.{e}"):
-            res.append(i)
-    return res
+def find(path: Path, exts: list[str]) -> list[Path]:
+    files = []
+    for ext in exts:
+        for file in path.glob(f"**/*.{ext}"):
+            files.append(file)
+    return files
 
 
 def parse_args() -> argparse.Namespace:
-    ap = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(
         prog="swaywall", description="Intelligent wallpaper switcher for swaywm"
     )
-    ap.add_argument("dir", help="path to wallpaper directory", type=str)
-    ap.add_argument(
+    parser.add_argument("dir", help="path to wallpaper directory", type=str)
+    parser.add_argument(
         "-r", "--restore", help="restore latest wallpaper", action="store_true"
     )
-    return ap.parse_args()
+    return parser.parse_args()
 
 
-def get_history(hst_file: Path) -> list:
+def get_history(hst_file: Path) -> list[Path]:
     ensure_exists(hst_file)
-    res = []
-    for path in hst_file.read_text().splitlines():
-        wp = path.strip()
-        if not Path(wp).exists():
+    hst = []
+    for wall in hst_file.read_text().splitlines():
+        wall = wall.strip()
+        if not Path(wall).exists():
             continue
-        res.append(wp)
-    return res
+        hst.append(wall)
+    return hst
 
 
-def get_new(walls: list, hst: list) -> Path:
+def get_new(walls: list[Path], hst: list[Path]) -> Path:
     new_walls = []
-    for w in walls:
-        if str(w) not in hst:
-            new_walls.append(w)
+    for wall in walls:
+        if str(wall) not in hst:
+            new_walls.append(wall)
     return random.choice(new_walls)
 
 
-def remember(new: Path, walls: list, hst: list, hst_file: Path) -> None:
+def remember(new: Path, walls: list[Path], hst: list[Path], hst_file: Path) -> None:
     hst = dedupe(hst)
     random.shuffle(hst)  # avoid cycling through walls in the same order
 
-    hst.insert(0, str(new))
+    hst.insert(0, new)
     del hst[len(walls) - 1 :]
     with hst_file.open("w") as f:
-        for i in hst:
-            f.write(f"{i}\n")
+        for wall in hst:
+            f.write(f"{wall}\n")
 
 
-def set_wall(img: Path) -> None:
-    subprocess.run(["swaymsg", "output", "*", "bg", str(img), "fill"], check=True)
+def set_wall(wall: Path) -> None:
+    subprocess.run(["swaymsg", "output", "*", "bg", str(wall), "fill"], check=True)
 
 
 def main() -> None:
@@ -82,7 +83,7 @@ def main() -> None:
     hst = get_history(hst_file)
     if args.restore and hst:
         set_wall(hst[0])
-        exit()
+        exit(0)
 
     walls = find(walls_dir, img_exts)
     if not walls:

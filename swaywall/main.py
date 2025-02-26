@@ -33,13 +33,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-r", "--restore", help="restore latest wallpaper", action="store_true"
     )
+
+    exts = ["png", "jpg", "jpeg"]
     parser.add_argument(
         "-e",
         "--extensions",
         nargs="+",
-        default=["png", "jpg", "jpeg"],
+        default=exts,
         metavar="EXT",
-        help="image file extensions to look for",
+        help=f"image file extensions to look for (default: {' '.join(exts)})",
     )
     return parser.parse_args()
 

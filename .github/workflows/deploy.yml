@@ -16,18 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: test.pypi.org
-      url: https://test.pypi.org/project/$PROJECT/${{ steps.get-version.outputs.package_version }}/
+      url: https://test.pypi.org/project/${{ env.PROJECT }}/${{ steps.get-version.outputs.package_version }}/
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: $PYTHON_VERSION
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
         uses: abatilo/actions-poetry@v3
         with:
-          poetry-version: $POETRY_VERSION"
+          poetry-version: ${{ env.POETRY_VERSION }}
       - name: Install dependencies
         run: poetry install
       - name: Get Package Version
@@ -48,18 +48,18 @@ jobs:
     needs: publish-test-pypi
     environment:
       name: pypi.org
-      url: https://pypi.org/project/$PROJECT/${{ steps.get-version.outputs.package_version }}/
+      url: https://pypi.org/project/${{ env.PROJECT }}/${{ steps.get-version.outputs.package_version }}/
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: $PYTHON_VERSION
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
         uses: abatilo/actions-poetry@v3
         with:
-          poetry-version: $POETRY_VERSION
+          poetry-version: ${{ env.POETRY_VERSION }}
       - name: Install dependencies
         run: poetry install
       - name: Get Package Version

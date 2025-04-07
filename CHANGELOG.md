@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/cycneuramus/swaywall/compare/v0.2.0...v0.2.1) (2025-04-07)
+
+
+### Bug Fixes
+
+* Type related improvements ([ebdfc2c](https://github.com/cycneuramus/swaywall/commit/ebdfc2c19e68a02f6b6daa587f39cf79bec21036))
+
 ## [0.2.0](https://github.com/cycneuramus/swaywall/compare/v0.1.1...v0.2.0) (2025-02-26)
 
 

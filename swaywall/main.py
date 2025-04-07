@@ -18,7 +18,7 @@ def ensure_exists(file: Path) -> None:
 
 
 def find(path: Path, exts: list[str]) -> list[Path]:
-    files = []
+    files: list[Path] = []
     for ext in exts:
         for file in path.glob(f"**/*.{ext}"):
             files.append(file)
@@ -48,19 +48,19 @@ def parse_args() -> argparse.Namespace:
 
 def get_history(hst_file: Path) -> list[Path]:
     ensure_exists(hst_file)
-    hst = []
+    hst: list[Path] = []
     for wall in hst_file.read_text().splitlines():
         wall = wall.strip()
         if not Path(wall).exists():
             continue
-        hst.append(wall)
+        hst.append(Path(wall))
     return hst
 
 
 def get_new(walls: list[Path], hst: list[Path]) -> Path:
-    new_walls = []
+    new_walls: list[Path] = []
     for wall in walls:
-        if str(wall) not in hst:
+        if wall not in hst:
             new_walls.append(wall)
     return random.choice(new_walls)
 

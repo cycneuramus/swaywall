@@ -1,6 +1,6 @@
 [project]
 name = "swaywall"
-version = "0.3.0"
+version = "0.3.1"
 description = "An intelligent wallpaper switcher for swaywm"
 authors = [
 	{ name = "cycneuramus", email = "<56681631+cycneuramus@users.noreply.github.com>" }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/cycneuramus/swaywall/compare/v0.3.0...v0.3.1) (2025-06-17)
+
+
+### Documentation
+
+* Update README ([02ca6fc](https://github.com/cycneuramus/swaywall/commit/02ca6fc77550d765c98c5c01254d8e44668e65d4))
+
 ## [0.3.0](https://github.com/cycneuramus/swaywall/compare/v0.2.1...v0.3.0) (2025-06-17)
 
 

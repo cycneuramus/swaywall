@@ -34,6 +34,14 @@ def parse_args() -> argparse.Namespace:
         "-r", "--restore", help="restore latest wallpaper", action="store_true"
     )
 
+    parser.add_argument(
+        "-m",
+        "--method",
+        choices=["swaymsg", "swww"],
+        default="swaymsg",
+        help="wallpaper setting method",
+    )
+
     exts = ["png", "jpg", "jpeg"]
     parser.add_argument(
         "-e",
@@ -76,8 +84,13 @@ def remember(new: Path, walls: list[Path], hst: list[Path], hst_file: Path) -> N
             f.write(f"{wall}\n")
 
 
-def set_wall(wall: Path) -> None:
-    subprocess.run(["swaymsg", "output", "*", "bg", str(wall), "fill"], check=True)
+def set_wall(wall: Path, method: str) -> None:
+    if method == "swaymsg":
+        subprocess.run(["swaymsg", "output", "*", "bg", str(wall), "fill"], check=True)
+    elif method == "swww":
+        subprocess.run(["swww", "img", str(wall)], check=True)
+    else:
+        raise ValueError(f"Unknown wallpaper method: {method}")
 
 
 def main() -> None:
@@ -94,7 +107,7 @@ def main() -> None:
         previous_wall = Path(hst[0])
         if not previous_wall.exists():
             raise FileNotFoundError(f"wallpaper not found: {previous_wall}")
-        set_wall(previous_wall)
+        set_wall(previous_wall, args.method)
         exit(0)
 
     walls = find(walls_dir, args.extensions)
@@ -104,7 +117,7 @@ def main() -> None:
     new = get_new(walls, hst)
     if new:
         remember(new, walls, hst, hst_file)
-        set_wall(new)
+        set_wall(new, args.method)
 
 
 if __name__ == "__main__":

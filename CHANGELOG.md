@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/cycneuramus/swaywall/compare/v0.2.1...v0.3.0) (2025-06-17)
+
+
+### Features
+
+* Support swww as wallpaper method ([9a04a26](https://github.com/cycneuramus/swaywall/commit/9a04a26d167d0ea9eee1333161919125ad206b49))
+
 ## [0.2.1](https://github.com/cycneuramus/swaywall/compare/v0.2.0...v0.2.1) (2025-04-07)
 
 

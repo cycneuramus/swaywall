@@ -16,7 +16,7 @@ An intelligent wallpaper switcher for `swaywm`.
 ## Usage
 
 ```
-usage: swaywall [-h] [-r] [-m {swaymsg,swww}] [-e EXT [EXT ...]] dir
+usage: swaywall [-h] [-r] [-m {swaymsg,awww}] [-e EXT [EXT ...]] dir
 
 Intelligent wallpaper switcher for swaywm
 
@@ -26,7 +26,7 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -r, --restore         restore latest wallpaper
-  -m, --method {swaymsg,swww}
+  -m, --method {swaymsg,awww}
                         wallpaper setting method
   -e, --extensions EXT [EXT ...]
                         image file extensions to look for (default: png jpg jpeg)

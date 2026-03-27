@@ -37,7 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-m",
         "--method",
-        choices=["swaymsg", "swww"],
+        choices=["swaymsg", "awww"],
         default="swaymsg",
         help="wallpaper setting method",
     )
@@ -87,8 +87,8 @@ def remember(new: Path, walls: list[Path], hst: list[Path], hst_file: Path) -> N
 def set_wall(wall: Path, method: str) -> None:
     if method == "swaymsg":
         subprocess.run(["swaymsg", "output", "*", "bg", str(wall), "fill"], check=True)
-    elif method == "swww":
-        subprocess.run(["swww", "img", str(wall)], check=True)
+    elif method == "awww":
+        subprocess.run(["awww", "img", str(wall)], check=True)
     else:
         raise ValueError(f"Unknown wallpaper method: {method}")
 

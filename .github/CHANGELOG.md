@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.0.0](https://github.com/cycneuramus/swaywall/compare/v1.0.0...v2.0.0) (2026-11-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* Complete rewrite in Nim
+
+### Features
+
+* Add CLI flag for image extensions ([5849e6d](https://github.com/cycneuramus/swaywall/commit/5849e6d9481912745c612bf7793707f09592a1e0))
+* Automatically prune non-existing files from history ([7b25e02](https://github.com/cycneuramus/swaywall/commit/7b25e0269808a90aeacbde9c144398d5116eac18))
+* Complete rewrite in Nim ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+* Start new history on completed wall cycle to avoid predictable ordering ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+* Support swww as wallpaper method ([9a04a26](https://github.com/cycneuramus/swaywall/commit/9a04a26d167d0ea9eee1333161919125ad206b49))
+* Support wallpapers organized in subdirectories ([8d5cc26](https://github.com/cycneuramus/swaywall/commit/8d5cc2605c53ded2e08b4641b851e1b17c1d6eb6))
+
+
+### Bug Fixes
+
+* Accommodate swww –&gt; awww project rename ([6340f2a](https://github.com/cycneuramus/swaywall/commit/6340f2a8732e149cbfa3f776b49fa022212efb66))
+* Add script installation ([9dc4373](https://github.com/cycneuramus/swaywall/commit/9dc4373daad477ac67307c727b9c83c835fb7aaa))
+* Handle error in --restore as in the normal path ([528141b](https://github.com/cycneuramus/swaywall/commit/528141b7745d6e667041923cb9cccfb712917858))
+* more reliable random pick ([217d4e5](https://github.com/cycneuramus/swaywall/commit/217d4e5a5be896f8bfe1d15f1cdcec87b66e211c))
+* More robust extension parsing ([e9a8a33](https://github.com/cycneuramus/swaywall/commit/e9a8a33c8bb49256f4a63fba9182463a3ac327c6))
+* Normalize file extension case ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+* Prevent trying to restore non-existing wallpaper ([bb924d3](https://github.com/cycneuramus/swaywall/commit/bb924d32190c07dff34fa045e987231d5365a719))
+* Type related improvements ([ebdfc2c](https://github.com/cycneuramus/swaywall/commit/ebdfc2c19e68a02f6b6daa587f39cf79bec21036))
+* Use absolute path for wallpaper directory ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+
 ## [1.0.0](https://github.com/cycneuramus/swaywall/compare/v0.3.1...v1.0.0) (2026-11-04)
 
 

@@ -38,5 +38,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           overwrite: true
           tag: v${{ env.VERSION }}
-          asset_name: nmgr-${{ env.VERSION }}-linux-amd64
-          file: nmgr
+          asset_name: swaywall-${{ env.VERSION }}-linux-amd64
+          file: swaywall

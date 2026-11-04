@@ -6,7 +6,10 @@ type Backend = enum
   awww
 
 func parseExtensions(exts: string): seq[string] =
-  exts.split(',').mapIt("." & it.strip.toLowerAscii)
+  for ext in exts.split(","):
+    let name = ext.strip(chars = Whitespace + {'.'}).toLowerAscii
+    if name.len > 0:
+      result.add(fmt".{name}")
 
 proc findWalls(dir: string, exts: seq[string]): seq[string] =
   for file in walkDirRec(dir, yieldFilter = {pcFile, pcLinkToFile}):

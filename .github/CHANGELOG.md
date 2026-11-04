@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.0](https://github.com/cycneuramus/swaywall/compare/v0.3.1...v1.0.0) (2026-11-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* Complete rewrite in Nim
+
+### Features
+
+* Complete rewrite in Nim ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+* Start new history on completed wall cycle to avoid predictable ordering ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+
+
+### Bug Fixes
+
+* Normalize file extension case ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+* Use absolute path for wallpaper directory ([87009d7](https://github.com/cycneuramus/swaywall/commit/87009d7528c58ae2b634a269285ee40d6312f0ca))
+
 ## [0.3.1](https://github.com/cycneuramus/swaywall/compare/v0.3.0...v0.3.1) (2026-03-27)
 
 

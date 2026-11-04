@@ -90,7 +90,10 @@ proc main() =
     history = getHistory(historyFile)
 
   if args.restore and history.len > 0:
-    setWall(history[0], backend)
+    try:
+      setWall(history[0], backend)
+    except CatchableError as e:
+      quit(e.msg)
     return
 
   let walls = findWalls(dir, parseExtensions(args.extensions))

@@ -46,8 +46,12 @@ proc setWall(wall: string, backend: Backend) =
     of awww:
       @["img", wall]
 
-  if execCmd(quoteShellCommand(@[$backend] & args)) != 0:
-    raise newException(OSError, fmt"Failed to set wallpaper using {$backend}")
+  let process =
+    startProcess($backend, args = args, options = {poUsePath, poParentStreams})
+  defer:
+    process.close()
+  if process.waitForExit() != 0:
+    raise newException(OSError, fmt"Failed to set wallpaper using {backend}")
 
 template buildParser(): untyped =
   newParser("swaywall"):

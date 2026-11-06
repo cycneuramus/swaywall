@@ -79,7 +79,7 @@ proc main() =
     except UsageError as e:
       quit(fmt"Error parsing arguments: {e.msg}")
 
-  let dir = args.dir.absolutePath
+  let dir = args.dir.absolutePath.normalizedPath
   if not dir.dirExists:
     quit(fmt"Directory not found: {dir}")
 

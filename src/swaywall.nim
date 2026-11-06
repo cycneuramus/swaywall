@@ -109,11 +109,19 @@ proc main() =
   if walls.len == 0:
     quit(fmt"No wallpapers found in {dir}")
 
-  randomize() # seed the random number generator for new wall pick
-  let newHistory = updateHistory(walls, history)
+  let newHistory =
+    if args.restore and history.len > 0:
+      history
+    else:
+      let walls = findWalls(dir, args.extensions.parseExtensions())
+      if walls.len == 0:
+        quit(fmt"No wallpapers found in {dir}")
+      randomize() # seed the random number generator for new wall pick
+      updateHistory(walls, history)
+
   try:
     setWall(newHistory[0], backend)
-  except CatchableError as e:
+  except OSError as e:
     quit(e.msg)
 
   if not historyFile.parentDir.dirExists:

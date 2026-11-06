@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.1](https://github.com/cycneuramus/swaywall/compare/v1.0.0...v1.0.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* Follow symlinked directories ([dcc7912](https://github.com/cycneuramus/swaywall/commit/dcc7912d0fc837fee8126b8894fda0b97a358899))
+* Handle error in --restore as in the normal path ([528141b](https://github.com/cycneuramus/swaywall/commit/528141b7745d6e667041923cb9cccfb712917858))
+* More robust extension parsing ([e9a8a33](https://github.com/cycneuramus/swaywall/commit/e9a8a33c8bb49256f4a63fba9182463a3ac327c6))
+* Normalize wall dir path ([c282084](https://github.com/cycneuramus/swaywall/commit/c28208441967d361da32708c68ce0d09da333831))
+
 ## [1.0.0](https://github.com/cycneuramus/swaywall/compare/v0.3.1...v1.0.0) (2026-11-04)
 
 

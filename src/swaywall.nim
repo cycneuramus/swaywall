@@ -12,7 +12,9 @@ func parseExtensions(exts: string): seq[string] =
       result.add(fmt".{name}")
 
 proc findWalls(dir: string, exts: seq[string]): seq[string] =
-  for file in walkDirRec(dir, yieldFilter = {pcFile, pcLinkToFile}):
+  for file in walkDirRec(
+    dir, yieldFilter = {pcFile, pcLinkToFile}, followFilter = {pcDir, pcLinkToDir}
+  ):
     if file.splitFile.ext.toLowerAscii in exts:
       result.add(file)
 

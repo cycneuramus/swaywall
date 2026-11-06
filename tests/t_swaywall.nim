@@ -83,10 +83,11 @@ suite "findWalls":
       tmp / "link.png", tmp / "real" / "a.png"
     ]
 
-  test "does not follow symlinked directories":
+  test "follows symlinked directories":
     touch(tmp / "real" / "a.png")
     createSymlink(tmp / "real", tmp / "dirlink")
-    check findWalls(tmp, @[".png"]) == @[tmp / "real" / "a.png"]
+    check findWalls(tmp, @[".png"]) ==
+      @[tmp / "real" / "a.png", tmp / "dirlink" / "a.png"]
 
 suite "getHistory":
   setup:

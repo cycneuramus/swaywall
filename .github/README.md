@@ -22,7 +22,7 @@ Pre-built binaries for Linux (AMD64) are available on the [release page](https:/
 ## Usage
 
 ```
-Intelligent wallpaper switcher for swaywm.
+Intelligent wallpaper switcher for Wayland compositors.
 
 Usage:
   swaywall [options] dir

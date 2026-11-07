@@ -57,7 +57,7 @@ proc setWall(wall: string, backend: Backend) =
 
 template buildParser(): untyped =
   newParser("swaywall"):
-    help("Intelligent wallpaper switcher for swaywm.")
+    help("Intelligent wallpaper switcher for Wayland compositors.")
     flag("-r", "--restore", help = "Restore latest wallpaper.")
     option(
       "-b",

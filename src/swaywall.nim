@@ -107,7 +107,7 @@ proc main() =
       quit(e.msg)
     return
 
-  let walls = findWalls(dir, parseExtensions(args.extensions))
+  let walls = findWalls(dir, args.extensions.parseExtensions())
   if walls.len == 0:
     quit(fmt"No wallpapers found in {dir}")
 

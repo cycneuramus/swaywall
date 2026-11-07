@@ -100,13 +100,6 @@ proc main() =
       getEnv("XDG_STATE_HOME", getHomeDir() / ".local" / "state") / "wallpaperhst"
     history = getHistory(historyFile)
 
-  if args.restore and history.len > 0:
-    try:
-      setWall(history[0], backend)
-    except CatchableError as e:
-      quit(e.msg)
-    return
-
   let newHistory =
     if args.restore and history.len > 0:
       history

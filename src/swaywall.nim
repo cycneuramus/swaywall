@@ -1,4 +1,4 @@
-import std/[options, os, osproc, random, sequtils, strformat, strutils]
+import std/[options, os, osproc, random, sequtils, sets, strformat, strutils]
 import pkg/argparse
 
 type Backend = enum
@@ -27,8 +27,10 @@ proc getHistory(historyFile: string): seq[string] =
 
 proc updateHistory(walls, history: seq[string]): seq[string] =
   let
-    seen = history.filterIt(it in walls) # ignore walls no longer in dir
-    fresh = walls.filterIt(it notin seen)
+    wallSet = walls.toHashSet
+    seen = history.filterIt(it in wallSet) # ignore walls no longer in dir
+    seenSet = seen.toHashSet
+    fresh = walls.filterIt(it notin seenSet)
   if fresh.len > 0:
     return fresh.sample() & seen # new pick is first entry in updated history
 

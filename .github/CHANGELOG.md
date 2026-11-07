@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/cycneuramus/swaywall/compare/v1.0.1...v1.0.2) (2026-11-07)
+
+
+### Performance Improvements
+
+* Run backend without a shell ([2830fa2](https://github.com/cycneuramus/swaywall/commit/2830fa2ad8925c247a5b14fa2f399cbdf22879b3))
+* Use hashsets to increase lookup performance dramatically ([a65b1e8](https://github.com/cycneuramus/swaywall/commit/a65b1e8837040d42b5b1c40af388c8e839c80ecf))
+
 ## [1.0.1](https://github.com/cycneuramus/swaywall/compare/v1.0.0...v1.0.1) (2026-11-06)
 
 

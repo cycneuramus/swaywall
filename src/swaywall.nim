@@ -93,7 +93,7 @@ proc main() =
 
   let backend = parseEnum[Backend](args.backend)
   if findExe($backend).isEmptyOrWhitespace:
-    quit(fmt"Executable not found: '{$backend}'")
+    quit(fmt"Executable not found: '{backend}'")
 
   let
     historyFile =

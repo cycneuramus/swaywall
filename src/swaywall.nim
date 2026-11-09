@@ -44,7 +44,7 @@ proc setWall(wall: string, backend: Backend) =
   let args =
     case backend
     of swaymsg:
-      @["output", "*", "bg", wall, "fill"]
+      @["output", "*", "bg", "\"" & wall & "\"", "fill"]
     of awww:
       @["img", wall]
 

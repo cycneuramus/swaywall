@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/cycneuramus/swaywall/compare/v1.0.2...v1.0.3) (2026-11-09)
+
+
+### Bug Fixes
+
+* Don't break paths with spaces on swaymsg ([861c5be](https://github.com/cycneuramus/swaywall/commit/861c5be4e5c947643ce1f48657118521050c5bf5))
+
 ## [1.0.2](https://github.com/cycneuramus/swaywall/compare/v1.0.1...v1.0.2) (2026-11-07)
 
 

@@ -1,6 +1,6 @@
 # Package
 
-version = "1.0.2" # x-release-please-version
+version = "1.0.3" # x-release-please-version
 author = "cycneuramus"
 description = "An intelligent wallpaper switcher for Wayland compositors"
 license = "GPL-3.0-only"
